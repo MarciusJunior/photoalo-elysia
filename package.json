@@ -6,7 +6,9 @@
     "dev": "bun run --watch src/index.ts"
   },
   "dependencies": {
-    "elysia": "latest"
+    "bullmq": "^5.58.0",
+    "elysia": "latest",
+    "sharp": "^0.34.3"
   },
   "devDependencies": {
     "@types/bun": "^1.2.20",

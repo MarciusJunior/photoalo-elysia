@@ -12,7 +12,7 @@ await setupDirectories();
 const app = new Elysia()
     .get('/', () => 'API PhotoAlo v1.0')
     .post('/upload', async ({ body, set }) => {
-        const image = body.image;
+        const { image, filterName } = body;
 
         if (image.size === 0) {
             set.status = 400;
@@ -26,7 +26,8 @@ const app = new Elysia()
 
         await imageQueue.add('process-image', {
             filePath: originalPath,
-            filename: originalFilename
+            filename: originalFilename,
+            filter: filterName
         });
 
         return {
@@ -37,7 +38,8 @@ const app = new Elysia()
         body: t.Object({
             image: t.File({
                 maxSize: '100m'
-            })
+            }),
+            filterName: t.Optional(t.String())
         })
     })
     .listen(3000);
